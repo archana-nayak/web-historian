@@ -41,10 +41,10 @@ const createFile = (asset) => {
       console.log('Saved!');
     });
   });
-  fs.writeFile(name, content, function(err) {
-    if (err) throw error;
-    console.log('Saved!');
-  });
+  // fs.writeFile(name, content, function(err) {
+  //   if (err) throw error;
+  //   console.log('Saved!');
+  // });
 };
 
 const requestForHomePage = (url, callback) => {
@@ -53,8 +53,8 @@ const requestForHomePage = (url, callback) => {
       method: 'GET',
       headers: {
           // 'Accept': 'text/html',
-          'Accept-Charset': 'utf-8',
-          'User-Agent': 'my-reddit-client'
+          // 'Accept-Charset': 'utf-8'
+          // 'User-Agent': 'my-reddit-client'
       }
   };
 
