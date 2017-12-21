@@ -1,6 +1,7 @@
-var path = require('path');
-var fs = require('fs');
-var archive = require('../helpers/archive-helpers');
+const path = require('path');
+const fs = require('fs');
+const archive = require('../helpers/archive-helpers');
+// const https = require('https');
 
 exports.headers = {
   'access-control-allow-origin': '*',
@@ -13,9 +14,8 @@ exports.headers = {
 exports.serveAssets = function(res, asset, callback) {
   if( asset === '/' ) {
    asset = './web/public/index.html';
-  }
-  if (archive.isUrlArchived(asset, callback)) {
-
+ } else if (!archive.isUrlArchived(asset, callback)) {
+    createFile(asset);
   }
   fs.readFile(asset, function(error, content) {
     if (error) {
@@ -29,7 +29,20 @@ exports.serveAssets = function(res, asset, callback) {
   });
 
 };
+// archive.paths.archivedSites + 'sites/'
+const createFile = (asset) => {
+  var name = './archives/sites' + asset;
+  var content = 'lol empty';
+  fs.writeFile(name, content, function(err) {
+    if (err) throw error;
+    console.log('Saved!');
+  });
+};
 
+
+// const makeRequestToSite = () => {
+//   https
+// };
 
 // As you progress, keep thinking about what helper functions you can put here!
 

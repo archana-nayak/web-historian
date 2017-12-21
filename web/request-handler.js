@@ -14,3 +14,8 @@ var sendResponse = function(res, content) {
   // console.log('in sendResponse res ', res);
   res.end(content);
 }
+
+// 
+// if (req.method === 'GET') {
+//
+// }
