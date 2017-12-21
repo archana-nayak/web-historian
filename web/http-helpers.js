@@ -1,3 +1,4 @@
+const request = require('request');
 const path = require('path');
 const fs = require('fs');
 const archive = require('../helpers/archive-helpers');
@@ -33,16 +34,40 @@ exports.serveAssets = function(res, asset, callback) {
 const createFile = (asset) => {
   var name = './archives/sites' + asset;
   var content = 'lol empty';
+  requestForHomePage(asset, (content) => {
+    console.log('in createFile content ', content);
+    fs.writeFile(name, content, function(err) {
+      if (err) throw error;
+      console.log('Saved!');
+    });
+  });
   fs.writeFile(name, content, function(err) {
     if (err) throw error;
     console.log('Saved!');
   });
 };
 
+const requestForHomePage = (url, callback) => {
+  const options = {
+      url: 'https://www.google.com/',
+      method: 'GET',
+      headers: {
+          // 'Accept': 'text/html',
+          'Accept-Charset': 'utf-8',
+          'User-Agent': 'my-reddit-client'
+      }
+  };
 
-// const makeRequestToSite = () => {
-//   https
-// };
+  request(options, function(err, res, body) {
+      json = body;
+      // console.log(json);
+      callback(json);
+  });
+
+};
+
+
+
 
 // As you progress, keep thinking about what helper functions you can put here!
 
