@@ -11,11 +11,13 @@ exports.headers = {
 };
 
 exports.serveAssets = function(res, asset, callback) {
-  // Write some code here that helps serve up your static files!
-  // (Static files are things like html (yours or archived from others...),
-  // css, or anything that doesn't change often.)
-  console.log('In httpHelpers');
-  fs.readFile('./web/public/index.html', function(error, content) {
+  if( asset === '/' ) {
+   asset = './web/public/index.html';
+  }
+  if (archive.isUrlArchived(asset, callback)) {
+
+  }
+  fs.readFile(asset, function(error, content) {
     if (error) {
       res.writeHead(500, exports.headers);
       console.error(error);
@@ -29,5 +31,9 @@ exports.serveAssets = function(res, asset, callback) {
 };
 
 
-
 // As you progress, keep thinking about what helper functions you can put here!
+
+
+// Write some code here that helps serve up your static files!
+// (Static files are things like html (yours or archived from others...),
+// css, or anything that doesn't change often.)
